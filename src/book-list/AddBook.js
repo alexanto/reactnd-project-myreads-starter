@@ -6,7 +6,7 @@ class AddBook extends Component {
     render() {
         return (
             <div className="open-search">
-                <Link class="search" to="/search">Add a book</Link>
+                <Link className="search" to="/search">Add a book</Link>
             </div>
         )
     }
