@@ -18,7 +18,7 @@ class SearchBooksBar extends Component {
 
     };
     onSubmit = (e) => {
-        if(e.keyCode == 13) {
+        if(e.keyCode === 13) {
             this.props.handleSearch(this.state.value);
         }
     };

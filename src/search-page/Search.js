@@ -27,7 +27,7 @@ class Search extends Component {
         return (
             <div className="search-books">
                 <SearchBooksBar handleSearch={this.handleSearch}/>
-                <SearchBooksResults/>
+                <SearchBooksResults books={this.state.searchResults}/>
             </div>
         )
     };

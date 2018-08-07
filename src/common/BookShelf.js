@@ -6,7 +6,9 @@ class BookShelf extends Component {
     render() {
         return (
             <div className="bookshelf">
+                {this.props.type && this.props.type.length > 0 &&
                 <h2 className="bookshelf-title">{this.props.type}</h2>
+                }
                 <div className="bookshelf-books">
                     <ol className="books-grid">
                         {this.props.books.map(book => {

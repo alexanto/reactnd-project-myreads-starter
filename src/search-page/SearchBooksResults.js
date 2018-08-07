@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import './SearchBooksResults.css';
+import BookShelf from '../common/BookShelf';
 
 class SearchBooksResults extends Component {
     render() {
         return (
             <div className="search-books-results">
-                <ol className="books-grid"></ol>
+                <BookShelf books={this.props.books}/>
             </div>
         )
     }
