@@ -8,8 +8,36 @@ class Search extends Component {
         super(props);
         this.state = {
             query: '',
-            searchResults: []
+            searchResults: [],
+            library: {
+
+            }
         }
+    }
+
+    componentDidMount() {
+        /** querying the books again is necessary to ensure correct data even if user starts from search page
+         * and passing it from the BookList component is not possible
+         * querying the books logically belongs to the BookList component not the App component
+         * querying the books in the app and passing all the way down is not good architecture I think
+         */
+        BooksAPI.getAll().then(
+            result => {
+                this.setState({
+                    library: result
+                });
+            }
+        )
+    }
+
+    mergeWithLibrary(currentLibrary, searchResults) {
+        return searchResults.map(result => {
+           const matchingItemInLibrary = currentLibrary.find(item => item.id === result.id);
+           if(matchingItemInLibrary) {
+                result['shelf'] = matchingItemInLibrary.shelf;
+           }
+           return result;
+        });
     }
 
     handleSearch = (query) => {
@@ -18,8 +46,8 @@ class Search extends Component {
         });
         BooksAPI.search(query).then(result => {
             this.setState({
-                searchResults: result
-            })
+                searchResults: this.mergeWithLibrary(this.state.library, result)
+            });
         })
     };
 
