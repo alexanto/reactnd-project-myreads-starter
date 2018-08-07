@@ -5,7 +5,7 @@ import './Book.css';
 class Book extends Component {
 
     joinArray(array) {
-        return array.join(", ");
+        return array? array.join(", "):'';
     }
 
     render() {
