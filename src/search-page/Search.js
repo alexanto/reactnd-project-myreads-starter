@@ -8,26 +8,8 @@ class Search extends Component {
         super(props);
         this.state = {
             query: '',
-            searchResults: [],
-            library: {
-
-            }
+            searchResults: []
         }
-    }
-
-    componentDidMount() {
-        /** querying the books again is necessary to ensure correct data even if user starts from search page
-         * and passing it from the BookList component is not possible
-         * querying the books logically belongs to the BookList component not the App component
-         * querying the books in the app and passing all the way down is not good architecture I think
-         */
-        BooksAPI.getAll().then(
-            result => {
-                this.setState({
-                    library: result
-                });
-            }
-        )
     }
 
     mergeWithLibrary(currentLibrary, searchResults) {
@@ -44,9 +26,13 @@ class Search extends Component {
         this.setState({
             query: query
         });
+        let booksArray = [];
+        Object.keys(this.props.library).map((key) => {
+            booksArray = booksArray.concat(this.props.library[key]);
+        });
         BooksAPI.search(query).then(result => {
             this.setState({
-                searchResults: this.mergeWithLibrary(this.state.library, result)
+                searchResults: this.mergeWithLibrary(booksArray, result)
             });
         })
     };
@@ -55,7 +41,7 @@ class Search extends Component {
         return (
             <div className="search-books">
                 <SearchBooksBar handleSearch={this.handleSearch}/>
-                <SearchBooksResults books={this.state.searchResults}/>
+                <SearchBooksResults changeShelf={this.props.changeShelf} books={this.state.searchResults}/>
             </div>
         )
     };

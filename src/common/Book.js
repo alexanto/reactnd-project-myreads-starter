@@ -13,7 +13,7 @@ class Book extends Component {
             <div className="book">
                 <div className="book-top">
                     <div className="book-cover" style={{backgroundImage: `url(${this.props.book.imageLinks.thumbnail})`}}></div>
-                    <BookShelfChanger book={this.props.book}/>
+                    <BookShelfChanger changeShelf={this.props.changeShelf} book={this.props.book}/>
                 </div>
                 <div className="book-title">{this.props.book.title}</div>
                 <div className="book-authors">{this.joinArray(this.props.book.authors)}</div>
