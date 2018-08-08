@@ -46,10 +46,8 @@ class BooksApp extends React.Component {
                     newBook.shelf = key;
                     currentlyInShelves[key].push(newBook);
                 }
-
             });
         }
-
         this.setState(currentlyInShelves);
     };
 

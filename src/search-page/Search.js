@@ -28,7 +28,7 @@ class Search extends Component {
         });
         let booksArray = [];
         Object.keys(this.props.library).map((key) => {
-            booksArray = booksArray.concat(this.props.library[key]);
+            return booksArray = booksArray.concat(this.props.library[key]);
         });
         BooksAPI.search(query).then(result => {
             this.setState({
