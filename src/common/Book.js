@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import BookShelfChanger from './BookShelfChanger';
 import './Book.css';
+import placeHolder from '../icons/baseline-book-24px.svg';
 
 class Book extends Component {
 
@@ -12,7 +13,7 @@ class Book extends Component {
         return (
             <div className="book">
                 <div className="book-top">
-                    <div className="book-cover" style={{backgroundImage: `url(${this.props.book.imageLinks.thumbnail})`}}></div>
+                    <div className="book-cover" style={{backgroundImage: this.props.book.imageLinks?`url(${this.props.book.imageLinks.thumbnail})`:`url(${placeHolder})`}}></div>
                     <BookShelfChanger changeShelf={this.props.changeShelf} book={this.props.book}/>
                 </div>
                 <div className="book-title">{this.props.book.title}</div>

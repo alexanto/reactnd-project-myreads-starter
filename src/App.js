@@ -2,11 +2,12 @@ import React from 'react';
 import './App.css';
 import {
     BrowserRouter as Router,
-    Route
+    Route, Switch
 } from 'react-router-dom';
 import BookList from './book-list/BookList';
 import Search from './search-page/Search';
 import * as BooksAPI from './BooksAPI';
+import  NotFound  from './NotFound';
 
 class BooksApp extends React.Component {
 
@@ -85,8 +86,11 @@ class BooksApp extends React.Component {
     return (
         <Router>
           <div className="app">
-            <Route path="/" exact={true} render={()=><BookList changeShelf={this.changeShelf} books={this.state} types={this.types}/>} />
-            <Route path="/search" render={()=><Search changeShelf={this.changeShelf} library={this.state}/>} />
+              <Switch>
+                  <Route path="/" exact={true} render={()=><BookList changeShelf={this.changeShelf} books={this.state} types={this.types}/>} />
+                  <Route path="/search" render={()=><Search changeShelf={this.changeShelf} library={this.state}/>} />
+                  <Route path="*" render={()=><NotFound/> } />
+              </Switch>
           </div>
         </Router>
     )

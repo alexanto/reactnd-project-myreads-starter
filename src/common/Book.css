@@ -24,6 +24,8 @@
     background: #eee;
     width: 128px;
     height: 193px;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 .book-cover-title {
     padding: 20px 10px 0;

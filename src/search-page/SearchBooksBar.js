@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './SearchBooksBar.css';
+import { DebounceInput } from 'react-debounce-input';
 
 class SearchBooksBar extends Component {
     constructor(props) {
@@ -10,17 +11,20 @@ class SearchBooksBar extends Component {
         }
     }
 
+    componentDidMount() {
+        console.log('thisstate', this.state);
+        this.setState({
+            value: ''
+        });
+    }
+
     onChange = (event) => {
         const val = event.target.value;
         this.setState({
            value: val
         });
+        this.props.handleSearch(val);
 
-    };
-    onSubmit = (e) => {
-        if(e.keyCode === 13) {
-            this.props.handleSearch(this.state.value);
-        }
     };
 
     render() {
@@ -28,7 +32,7 @@ class SearchBooksBar extends Component {
             <div className="search-books-bar">
                 <Link className="close-search" to="/">Search</Link>
                 <div className="search-books-input-wrapper">
-                <input type="text" placeholder="Search by title or author" onChange={this.onChange} onKeyDown={this.onSubmit}/>
+                <DebounceInput debounceTimeout={300} type="text" placeholder="Search by title or author" onChange={this.onChange}/>
                 </div>
             </div>
         )

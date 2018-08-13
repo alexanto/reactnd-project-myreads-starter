@@ -13,13 +13,17 @@ class Search extends Component {
     }
 
     mergeWithLibrary(currentLibrary, searchResults) {
-        return searchResults.map(result => {
-           const matchingItemInLibrary = currentLibrary.find(item => item.id === result.id);
-           if(matchingItemInLibrary) {
-                result['shelf'] = matchingItemInLibrary.shelf;
-           }
-           return result;
-        });
+        if(searchResults.length > 0) {
+            return searchResults.map(result => {
+                const matchingItemInLibrary = currentLibrary.find(item => item.id === result.id);
+                if(matchingItemInLibrary) {
+                    result['shelf'] = matchingItemInLibrary.shelf;
+                }
+                return result;
+            });
+        } else {
+            return [];
+        }
     }
 
     handleSearch = (query) => {
@@ -30,11 +34,22 @@ class Search extends Component {
         Object.keys(this.props.library).map((key) => {
             return booksArray = booksArray.concat(this.props.library[key]);
         });
-        BooksAPI.search(query).then(result => {
+        if(query) {
+            BooksAPI.search(query).then(result => {
+                this.setState({
+                    searchResults: this.mergeWithLibrary(booksArray, result)
+                });
+            }).catch(() => {
+                this.setState({
+                    searchResults: []
+                });
+            })
+        } else {
             this.setState({
-                searchResults: this.mergeWithLibrary(booksArray, result)
+                searchResults: []
             });
-        })
+        }
+
     };
 
     render() {
